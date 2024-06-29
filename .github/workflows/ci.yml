@@ -14,7 +14,7 @@ jobs:
           distribution: 'adopt'
           java-version: '8'
       - name: Maven
-        run: mvn clean install -Drat.skip=true -Dskiptests -Dcheckstyle.skip -Dmaven.test.skip=true
+        run: mvn clean install -Drat.skip=true -Dskiptests -Dcheckstyle.skip -Dmaven.test.skip=true -U
 
       - name: Compile the project
         run: mvn test-compile -pl standalone-metastore/metastore-server -am -Drat.skip=true -U
