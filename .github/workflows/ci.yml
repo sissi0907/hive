@@ -13,6 +13,11 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
+      - name: Setup Maven 3.9.8
+        uses: s4u/setup-maven-action@v1 
+        with:
+          java-version: 11  
+          maven-version: 3.9.8
 #       - name: Maven
 #         run: mvn clean package -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true
 # # run: mvn dependency:purge-local-repository clean install -Drat.skip=true -Dskiptests -Dcheckstyle.skip -Dmaven.test.skip=true -U
