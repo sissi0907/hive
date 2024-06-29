@@ -13,15 +13,15 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '8'
-      - name: Maven
-        run: mvn clean package -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true
-# run: mvn dependency:purge-local-repository clean install -Drat.skip=true -Dskiptests -Dcheckstyle.skip -Dmaven.test.skip=true -U
+#       - name: Maven
+#         run: mvn clean package -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true
+# # run: mvn dependency:purge-local-repository clean install -Drat.skip=true -Dskiptests -Dcheckstyle.skip -Dmaven.test.skip=true -U
 
       - name: Compile the project
-        run: mvn test-compile -pl standalone-metastore/metastore-server -am -Drat.skip=true -U
+        run: mvn test-compile -pl standalone-metastore/metastore-server -am -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true -U
   
       - name: Run tests
-        run: mvn -pl standalone-metastore/metastore-server test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -Drat.skip=true -U
+        run: mvn -pl standalone-metastore/metastore-server test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true -U
         
       # - name: Set up JDK 8 for NonDex
       #   uses: actions/setup-java@v2
