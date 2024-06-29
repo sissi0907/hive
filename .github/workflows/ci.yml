@@ -12,7 +12,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: '8'
+          java-version: '11'
 #       - name: Maven
 #         run: mvn clean package -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true
 # # run: mvn dependency:purge-local-repository clean install -Drat.skip=true -Dskiptests -Dcheckstyle.skip -Dmaven.test.skip=true -U
@@ -24,6 +24,7 @@ jobs:
       #   run: mvn -pl standalone-metastore/metastore-server test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true -U
       - name: Install dependencies (with skipping tests)
         run: mvn package -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true -U
+      
 
       - name: Run single test
         run: mvn test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true -U
