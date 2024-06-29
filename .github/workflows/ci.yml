@@ -14,7 +14,7 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
       - name: Setup Maven 3.9.8
-        uses: s4u/setup-maven-action@v2.170.0
+        uses: s4u/setup-maven-action@v2.317.0
         with:
           java-version: 11  
           maven-version: 3.9.8
