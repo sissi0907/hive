@@ -13,11 +13,7 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
-      - name: Setup Maven 3.9.8
-        uses: s4u/setup-maven-action@v2.317.0
-        with:
-          java-version: 11  
-          maven-version: 3.9.8
+      
 #       - name: Maven
 #         run: mvn clean package -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true
 # # run: mvn dependency:purge-local-repository clean install -Drat.skip=true -Dskiptests -Dcheckstyle.skip -Dmaven.test.skip=true -U
@@ -27,12 +23,12 @@ jobs:
   
       # - name: Run tests
       #   run: mvn -pl standalone-metastore/metastore-server test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true -U
-      - name: Install dependencies (with skipping tests)
-        run: mvn package -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true -U
+      # - name: Install dependencies (with skipping tests)
+      #   run: mvn package -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true -U
       
 
-      - name: Run single test
-        run: mvn test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true -U
+      # - name: Run single test
+      #   run: mvn test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true -U
         
       # - name: Set up JDK 8 for NonDex
       #   uses: actions/setup-java@v2
@@ -41,4 +37,4 @@ jobs:
       #     java-version: '8'
   
       - name: Run NonDex to check for flaky tests
-        run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:1.1.2:nondex -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -Drat.skip=true -DnondexRuns=10 -U
+        run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:nondex -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -Drat.skip=true -DnondexRuns=10 -U
