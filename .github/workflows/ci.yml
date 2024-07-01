@@ -21,8 +21,8 @@ jobs:
       - name: Compile the project
         run: mvn test-compile -pl standalone-metastore/metastore-server -am -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true 
   
-      # - name: Run tests
-      #   run: mvn -pl standalone-metastore/metastore-server test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true -U
+      - name: Run tests
+        run: mvn -pl standalone-metastore/metastore-server test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true 
       # - name: Install dependencies (with skipping tests)
       #   run: mvn package -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true -U
       
