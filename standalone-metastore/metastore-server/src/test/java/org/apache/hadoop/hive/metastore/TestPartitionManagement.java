@@ -84,37 +84,34 @@ public class TestPartitionManagement {
   @After
   public void tearDown() throws Exception {
     if (client != null) {
-        // Drop any leftover catalogs
-        List<String> catalogs = client.getCatalogs();
-        for (String catName : catalogs) {
-            // First drop any databases in the catalog
-            List<String> databases = client.getAllDatabases(catName);
-            for (String db : databases) {
-                if (!db.equalsIgnoreCase(Warehouse.DEFAULT_DATABASE_NAME)) {
-                    // Drop all tables in the database before dropping the database
-                    List<String> tables = client.getAllTables(catName, db);
-                    for (String table : tables) {
-                        client.dropTable(catName, db, table, true, true);
-                    }
-                    // Drop the database
-                    client.dropDatabase(catName, db, true, true, true);
-                }
+      // Drop any left over catalogs
+      List<String> catalogs = client.getCatalogs();
+      for (String catName : catalogs) {
+        if (!catName.equalsIgnoreCase(DEFAULT_CATALOG_NAME)) {
+          // First drop any databases in catalog
+          List<String> databases = client.getAllDatabases(catName);
+          for (String db : databases) {
+            client.dropDatabase(catName, db, true, false, true);
+          }
+          client.dropCatalog(catName);
+        } else {
+          List<String> databases = client.getAllDatabases(catName);
+          for (String db : databases) {
+            if (!db.equalsIgnoreCase(Warehouse.DEFAULT_DATABASE_NAME)) {
+              client.dropDatabase(catName, db, true, false, true);
             }
-            if (!catName.equalsIgnoreCase(DEFAULT_CATALOG_NAME)) {
-                // Drop the catalog after all databases have been dropped
-                client.dropCatalog(catName);
-            }
+          }
         }
+      }
     }
     try {
-        if (client != null) {
-            client.close();
-        }
+      if (client != null) {
+        client.close();
+      }
     } finally {
-        client = null;
+      client = null;
     }
- }
-
+  }
   private Map<String, Column> buildAllColumns() {
     Map<String, Column> colMap = new HashMap<>(6);
     Column[] cols = {new Column("b", "binary"), new Column("bo", "boolean"),
