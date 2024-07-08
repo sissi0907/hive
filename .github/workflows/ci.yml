@@ -26,4 +26,4 @@ jobs:
         run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:nondex -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=10 -Dmaven.test.failure.ignore=true
 
       - name: Debug NonDex to check for flaky tests
-        run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:debug -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=10 -Dmaven.test.failure.ignore=true
+        run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:debug -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=10 -debug
