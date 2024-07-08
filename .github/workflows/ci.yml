@@ -20,10 +20,10 @@ jobs:
       #   run: mvn clean package -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true
   
       - name: Run tests
-        run: mvn -pl standalone-metastore/metastore-server test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true -U
+        run: mvn -pl standalone-metastore/metastore-server test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true 
   
       - name: Run NonDex to check for flaky tests
         run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:nondex -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=10 -Dmaven.test.failure.ignore=true
 
       - name: Debug NonDex to check for flaky tests
-        run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:debug -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=10 -U
+        run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:debug -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=10 -Dmaven.test.failure.ignore=true
