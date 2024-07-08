@@ -25,5 +25,11 @@ jobs:
       - name: Run NonDex to check for flaky tests
         run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:nondex -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=10 -Dmaven.test.failure.ignore=true
 
+      - name: Upload NonDex test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: nondex-test-results
+          path: standalone-metastore/metastore-server/.nondex/yfPh77Se+3rAnSXB8o8gD8qevxeiIyOKIBRoTgJOEg=/test_results.html
+
       - name: Debug NonDex to check for flaky tests
         run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:debug -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=10 -debug
