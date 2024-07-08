@@ -23,18 +23,12 @@ jobs:
         run: mvn -pl standalone-metastore/metastore-server test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true 
   
       - name: Run NonDex to check for flaky tests
-        run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:nondex -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=10 -Dmaven.test.failure.ignore=true
+        run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:nondex -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=20 -Dmaven.test.failure.ignore=true
 
-      - name: Find NonDex test results
-        id: find-results
+      - name: Find and display NonDex test results
         run: |
           file_path=$(find standalone-metastore/metastore-server/.nondex/ -name "test_results.html")
-          echo "file_path=$file_path" >> $GITHUB_ENV
-
-      - name: Upload NonDex test results
-        uses: actions/upload-artifact@v3
-        with:
-          name: nondex-test-results
-          path: ${{ env.file_path }}
+          echo "Displaying contents of: $file_path"
+          cat "$file_path"
       - name: Debug NonDex to check for flaky tests
         run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:debug -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=10 -debug
