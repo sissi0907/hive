@@ -82,47 +82,48 @@ public class TestPartitionManagement {
   }
 
   @After
- public void tearDown() throws Exception {
+  public void tearDown() throws Exception {
     if (client != null) {
-        // Drop any left over catalogs
-        List<String> catalogs = client.getCatalogs();
-        for (String catName : catalogs) {
-            if (!catName.equalsIgnoreCase(DEFAULT_CATALOG_NAME)) {
-                // First drop any databases in catalog
-                List<String> databases = client.getAllDatabases(catName);
-                for (String db : databases) {
-                    // Drop all tables in the database before dropping the database
-                    List<String> tables = client.getAllTables(catName, db);
-                    for(String table : tables) 
-                    {
-                        client.dropTable(catName, db, table, true, true);
-                    }
-                    client.dropDatabase(catName, db, true, false, true);
-                }
-                client.dropCatalog(catName);
-            } else {
-                List<String> databases = client.getAllDatabases(catName);
-                for (String db : databases) {
-                    if (!db.equalsIgnoreCase(Warehouse.DEFAULT_DATABASE_NAME)) {
-                        List<String> tables = client.getAllTables(catName, db);
-                        for(String table : tables) 
-                        {
-                            client.dropTable(catName, db, table, true, true);
-                        }
-                        client.dropDatabase(catName, db, true, false, true);
-                    }
-                }
+      // Drop any left over catalogs
+      List<String> catalogs = client.getCatalogs();
+      for (String catName : catalogs) {
+        if (!catName.equalsIgnoreCase(DEFAULT_CATALOG_NAME)) {
+          // First drop any databases in catalog
+          List<String> databases = client.getAllDatabases(catName);
+          for (String db : databases) {
+            // Drop all tables in the database before dropping the database
+            List<String> tables = client.getAllTables(catName, db);
+            for(String table : tables) 
+            {
+              client.dropTable(catName, db, table, true, true);
             }
+            client.dropDatabase(catName, db, true, false, true);
+          }
+          client.dropCatalog(catName);
+        } else {
+          List<String> databases = client.getAllDatabases(catName);
+          for (String db : databases) {
+            if (!db.equalsIgnoreCase(Warehouse.DEFAULT_DATABASE_NAME)) {
+              // Drop all tables in the database before dropping the database
+              List<String> tables = client.getAllTables(catName, db);
+              for(String table : tables) 
+              {
+                client.dropTable(catName, db, table, true, true);
+              }
+              client.dropDatabase(catName, db, true, false, true);
+            }
+          }
         }
+      }
     }
     try {
-        if (client != null) {
-            client.close();
-        }
+      if (client != null) {
+        client.close();
+      }
     } finally {
-        client = null;
+      client = null;
     }
-}
+  }
 
 
   private Map<String, Column> buildAllColumns() {
