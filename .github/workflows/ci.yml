@@ -13,22 +13,27 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
-     
-      - name: Compile the project
-        run: mvn test-compile -pl standalone-metastore/metastore-server -am -Drat.skip=true -Dcheckstyle.skip -U
-      # - name: Maven clean package
-      #   run: mvn clean package -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true
+      - name: Check Diff
+        run: |
+            git fetch origin main
+            git diff origin/main...HEAD > diff.txt
+            cat diff.txt
+           
+      # - name: Compile the project
+      #   run: mvn test-compile -pl standalone-metastore/metastore-server -am -Drat.skip=true -Dcheckstyle.skip -U
+      # # - name: Maven clean package
+      # #   run: mvn clean package -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true
   
-      - name: Run tests
-        run: mvn -pl standalone-metastore/metastore-server test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true 
+      # - name: Run tests
+      #   run: mvn -pl standalone-metastore/metastore-server test -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DskipTests -Drat.skip=true -Dcheckstyle.skip -Dmaven.test.skip=true 
   
-      - name: Run NonDex to check for flaky tests
-        run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:nondex -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=100 #-Dmaven.test.failure.ignore=true
+      # - name: Run NonDex to check for flaky tests
+      #   run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:nondex -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=100 #-Dmaven.test.failure.ignore=true
 
-      # - name: Find and display NonDex test results
-      #   run: |
-      #     file_path=$(find standalone-metastore/metastore-server/.nondex/ -name "test_results.html")
-      #     echo "Displaying contents of: $file_path"
-      #     cat "$file_path"
-      # - name: Debug NonDex to check for flaky tests
+      # # - name: Find and display NonDex test results
+      # #   run: |
+      # #     file_path=$(find standalone-metastore/metastore-server/.nondex/ -name "test_results.html")
+      # #     echo "Displaying contents of: $file_path"
+      # #     cat "$file_path"
+      # # - name: Debug NonDex to check for flaky tests
       #   run: mvn -pl standalone-metastore/metastore-server edu.illinois:nondex-maven-plugin:2.1.7:debug -Dtest=org.apache.hadoop.hive.metastore.TestPartitionManagement#testPartitionDiscoveryNonDefaultCatalog -DnondexRuns=10 -debug
