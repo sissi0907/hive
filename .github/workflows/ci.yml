@@ -15,8 +15,8 @@ jobs:
           java-version: '11'
       - name: Check Diff
         run: |
-            # git fetch origin main
-            git diff origin/main...HEAD > diff.txt
+            git fetch origin master
+            git diff origin/master...HEAD > diff.txt
             cat diff.txt
            
       # - name: Compile the project
