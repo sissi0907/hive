@@ -121,7 +121,6 @@ public class TestPartitionManagement {
     }
   }
 
-
   private Map<String, Column> buildAllColumns() {
     Map<String, Column> colMap = new HashMap<>(6);
     Column[] cols = {new Column("b", "binary"), new Column("bo", "boolean"),
